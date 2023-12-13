@@ -1,0 +1,34 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<nav class="navbar navbar-expand-lg bg-transparent">
+    <div class="container-fluid" sec:authorize="isAuthenticated()">
+        <span class="navbar-brand fa-regular fa-user" th:text="| ${#authentication.name}|"></span>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page">Tasks Management System</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-outline-success" aria-current="page" href="/home">Home</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('USER')">
+                    <a class="nav-link btn btn-outline-success" aria-current="page" href="/task/allTasks/0">All Tasks</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('USER')">
+                    <a class="nav-link btn btn-outline-success" aria-current="page" href="/task/myTasks/0">My Tasks</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('USER')">
+                    <a class="nav-link btn btn-outline-success" aria-current="page" href="/task/create">Create Task</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('EXECUTOR')">
+                    <a class="nav-link btn btn-outline-success" aria-current="page" href="/executor/myTasks/0">My Tasks</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a href="/logout" class="btn btn-outline-danger fa-sharp fa-solid fa-right-from-bracket">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

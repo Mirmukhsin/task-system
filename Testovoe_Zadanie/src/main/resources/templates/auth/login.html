@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragment :: head(~{::title})">
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 offset-4 mt-5">
+            <h1 class="text-center">Login</h1>
+            <div th:if="${errorMessage}" class="alert alert-danger">
+                <span th:text="${errorMessage}"></span>
+            </div>
+            <form method="post">
+                <input type="hidden" name="_csrf" th:value="${_csrf.getToken()}">
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="pswd">
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+                <a href="/register" class="btn btn-warning">Register</a>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

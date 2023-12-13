@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragment :: head(~{::title})">
+    <meta charset="UTF-8">
+    <title>My Tasks</title>
+</head>
+<body>
+<th:block th:replace="/navbar"></th:block>
+<h1 class="text-center">My Tasks Page</h1>
+<th:block th:if="${tasks.isEmpty()}">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-2 mt-5">
+                <div class="alert alert-danger">
+                    <h2>Your tasks not found</h2>
+                </div>
+                <a href="/task/create" class="btn btn-warning">Create new task</a>
+            </div>
+        </div>
+    </div>
+</th:block>
+<div class="container">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item">
+                <button class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></button>
+            </li>
+            <li class="page-item"><a class="page-link" th:href="@{/task/myTasks/{limit}(limit=0)}">1</a></li>
+            <li class="page-item"><a class="page-link" th:href="@{/task/myTasks/{limit}(limit=3)}">2</a></li>
+            <li class="page-item"><a class="page-link" th:href="@{/task/myTasks/{limit}(limit=6)}">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+            </li>
+        </ul>
+    </nav>
+    <div class="row">
+        <th:block th:each="task : ${tasks}" th:object="${task}">
+            <div class="card col-4">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="*{title}"></h5>
+                    <i class="text-warning">Description: </i>
+                    <p class="card-text" th:text="*{description}"></p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <i class="text-warning">Status: </i>
+                    <li class="list-group-item" th:text="*{status}"></li>
+                    <i class="text-warning">Priority: </i>
+                    <li class="list-group-item" th:text="*{priority}"></li>
+                    <i class="text-warning">Task Executor: </i>
+                    <li class="list-group-item" th:text="*{taskExecutor}"></li>
+                </ul>
+                <div class="card-body">
+                    <a th:href="@{/task/update/{id}(id=*{id})}" class="card-link">Update</a>
+                    <a th:href="@{/task/delete/{id}(id=*{id})}" class="card-link">Delete</a>
+                </div>
+            </div>
+        </th:block>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragment :: head(~{::title})">
+    <meta charset="UTF-8">
+    <title>Tasks</title>
+</head>
+<body>
+<th:block th:replace="/navbar"></th:block>
+<h1 class="text-center">Tasks Page</h1>
+<div class="container">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item">
+                <button class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></button>
+            </li>
+            <li class="page-item"><a class="page-link" th:href="@{/task/allTasks/{limit}(limit=0)}">1</a></li>
+            <li class="page-item"><a class="page-link" th:href="@{/task/allTasks/{limit}(limit=3)}">2</a></li>
+            <li class="page-item"><a class="page-link" th:href="@{/task/allTasks/{limit}(limit=6)}">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+            </li>
+        </ul>
+    </nav>
+    <div class="row">
+        <th:block th:each="task : ${tasks}" th:object="${task}">
+            <div class="card col-4">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="*{title}"></h5>
+                    <i class="text-warning">Description: </i>
+                    <p class="card-text" th:text="*{description}"></p>
+                    <ul class="list-group list-group-flush">
+                        <i class="text-warning">Status: </i>
+                        <li class="list-group-item" th:text="*{status}"></li>
+                        <i class="text-warning">Priority: </i>
+                        <li class="list-group-item" th:text="*{priority}"></li>
+                        <i class="text-warning">Task Author: </i>
+                        <li class="list-group-item" th:text="*{taskAuthor}"></li>
+                        <i class="text-warning">Task Executor: </i>
+                        <li class="list-group-item" th:text="*{taskExecutor}"></li>
+                    </ul>
+                </div>
+            </div>
+        </th:block>
+    </div>
+</div>
+</body>
+</html>

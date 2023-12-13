@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragment :: head(~{::title})">
+    <meta charset="UTF-8">
+    <title>Log out</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-2 mt-5">
+            <h1 class="text-center">Log out</h1>
+            <form method="post">
+                <input type="hidden" name="_csrf" th:value="${_csrf.getToken()}">
+                <div class="alert alert-danger">
+                    <h2 th:text="#{logOutMessage}"></h2>
+                </div>
+                <button type="submit" class="btn btn-danger">Yes</button>
+                <a href="/menu" class="btn btn-warning">Back</a>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

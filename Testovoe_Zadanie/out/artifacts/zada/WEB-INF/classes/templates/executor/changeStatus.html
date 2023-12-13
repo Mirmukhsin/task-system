@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragment :: head(~{::title})">
+    <meta charset="UTF-8">
+    <title>Change Status</title>
+</head>
+<body>
+<th:block th:replace="/navbar"></th:block>
+<h1 class="text-center">Change Status</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 offset-4 mt-5">
+            <form th:action="@{/executor/changeStatus}" method="post" th:object="${task}">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" id="title" th:field="*{title}" readonly class="form-control">
+                </div>
+                <input type="hidden" name="id" th:value="*{id}">
+                <input type="hidden" id="sValue" th:value="*{status}">
+                <div class="form-check-inline">
+                    <input class="form-check-input" type="radio" name="status" id="status1" value="waiting">
+                    <label class="form-check-label" for="status1">Waiting</label>
+                </div>
+                <div class="form-check-inline">
+                    <input class="form-check-input" type="radio" name="status" id="status2"
+                           value="in_progress">
+                    <label class="form-check-label" for="status2">In progress</label>
+                </div>
+                <div class="form-check-inline">
+                    <input class="form-check-input" type="radio" name="status" id="status3"
+                           value="completed">
+                    <label class="form-check-label" for="status3">Completed</label>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-info">Save</button>
+                <a href="/executor/myTasks/0" class="btn btn-warning">Back</a>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    const statuslar = document.getElementsByName('status');
+    const sValue = document.getElementById('sValue').value;
+    statuslar.forEach(status => {
+        if (status.value === sValue) {
+            status.checked = true;
+        }
+    });
+</script>
+</body>
+</html>

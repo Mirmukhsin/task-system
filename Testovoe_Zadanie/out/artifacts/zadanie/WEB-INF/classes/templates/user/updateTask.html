@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragment :: head(~{::title})">
+    <meta charset="UTF-8">
+    <title>Update</title>
+</head>
+<body>
+<th:block th:replace="/navbar"></th:block>
+<h1 class="text-center">Update Task</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 offset-4 mt-5">
+            <form th:object="${task}" method="post">
+                <input type="hidden" th:field="*{id}">
+
+                <label for="title" class="form-label">Title</label>
+                <input type="text" id="title" th:field="*{title}" class="form-control mb-4 col-4">
+
+                <label for="description" class="form-label">Description</label>
+                <input type="text" id="description" th:field="*{description}" class="form-control mb-4 col-4">
+
+                <label class="form-label">Status</label>
+                <input type="hidden" id="st" th:field="*{status}">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="status" id="status1" value="waiting">
+                    <label class="form-check-label" for="status1">Waiting</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="status" id="status2" value="in_progress">
+                    <label class="form-check-label" for="status2">In progress</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="status" id="status3" value="completed">
+                    <label class="form-check-label" for="status3">Completed</label>
+                </div>
+
+                <label class="form-label">Priority</label>
+                <input type="hidden" id="pt" th:field="*{priority}">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="priority" id="priority1" value="high">
+                    <label class="form-check-label" for="priority1">High</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="priority" id="priority2" value="medium">
+                    <label class="form-check-label" for="priority2">Medium</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="priority" id="priority3" value="low">
+                    <label class="form-check-label" for="priority3">Low</label>
+                </div>
+
+                <label for="taskExecutor" class="form-label">Task Executor</label>
+                <input type="text" id="taskExecutor" th:field="*{taskExecutor}" class="form-control mb-4 col-4">
+
+                <button type="submit" onclick="radioValue()" class="btn btn-info">Update</button>
+                <a href="/menu" class="btn btn-warning">Back</a>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+function radioValue(){
+
+    var st = document.getElementById('st');
+    var pt = document.getElementById('pt');
+    var status = document.getElementsByName('status');
+    var priority = document.getElementsByName('priority');
+    for ( i = 0; i < status.length; i++) {
+        if (status[i].checked){
+            st.value = status[i].value;
+        }
+    }
+    for ( i = 0; i < priority.length; i++) {
+        if (priority[i].checked){
+            pt.value = priority[i].value;
+        }
+    }
+}
+</script>
+</body>
+</html>

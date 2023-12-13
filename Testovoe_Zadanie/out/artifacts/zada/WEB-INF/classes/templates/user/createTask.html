@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragment :: head(~{::title})">
+    <meta charset="UTF-8">
+    <title>Create</title>
+</head>
+<body>
+<th:block th:replace="/navbar"></th:block>
+<h1 class="text-center">Create Task</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 offset-4 mt-5">
+            <form th:action="@{/task/create}" method="post" th:object="${task}">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" id="title" name="title" th:field="*{title}" class="form-control">
+                    <div th:if="${#fields.hasErrors('title')}">
+                        <span th:each="err : ${#fields.errors('title')}" th:text="${err}" style="color: red"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <input type="text" id="description" name="description" th:field="*{description}"
+                           class="form-control">
+                    <div th:if="${#fields.hasErrors('description')}">
+                        <span th:each="err : ${#fields.errors('description')}" th:text="${err}"
+                              style="color: red"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Status</label>
+                    <input type="hidden" id="sValue" th:value="*{status}">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="status" id="status1" value="waiting">
+                        <label class="form-check-label" for="status1">Waiting</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="status" id="status2" value="in_progress">
+                        <label class="form-check-label" for="status2">In progress</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="status" id="status3" value="completed">
+                        <label class="form-check-label" for="status3">Completed</label>
+                    </div>
+                    <div th:if="${#fields.hasErrors('status')}">
+                        <span th:each="err : ${#fields.errors('status')}" th:text="${err}" style="color: red"></span>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="mb-3">
+                    <label class="form-label">Priority</label>
+                    <input type="hidden" id="pValue" th:value="*{priority}">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="priority" id="priority1" value="high">
+                        <label class="form-check-label" for="priority1">High</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="priority" id="priority2" value="medium">
+                        <label class="form-check-label" for="priority2">Medium</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="priority" id="priority3" value="low">
+                        <label class="form-check-label" for="priority3">Low</label>
+                    </div>
+                    <div th:if="${#fields.hasErrors('priority')}">
+                        <span th:each="err : ${#fields.errors('priority')}" th:text="${err}" style="color: red"></span>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="mb-3">
+                    <label for="taskExecutor" class="form-label">Task Executor</label>
+                    <input type="hidden" id="eValue" th:value="*{taskExecutor}">
+                    <select class="form-select" name="taskExecutor" id="taskExecutor">
+                        <option selected></option>
+                        <th:block th:each="executor : ${executors}" th:object="${executor}">
+                            <option th:value="*{username}" th:text="*{username}"></option>
+                        </th:block>
+                    </select>
+                    <div th:if="${#fields.hasErrors('taskExecutor')}">
+                        <span th:each="err : ${#fields.errors('taskExecutor')}" th:text="${err}"
+                              style="color: red"></span>
+                    </div>
+                </div>
+
+                <br>
+
+                <button type="submit" class="btn btn-info">Save</button>
+                <a href="/task/myTasks/0" class="btn btn-warning">Back</a>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    const executor = document.getElementById('taskExecutor');
+    const eValue = document.getElementById('eValue');
+    if (executor.value === "") {
+        executor.value = eValue.value;
+    }
+    const statuslar = document.getElementsByName('status');
+    const sValue = document.getElementById('sValue').value;
+    statuslar.forEach(status => {
+        if (status.value === sValue) {
+            status.checked = true;
+        }
+    });
+    const prioritylar = document.getElementsByName('priority');
+    const pValue = document.getElementById('pValue').value;
+    prioritylar.forEach(priority => {
+        if (priority.value === pValue) {
+            priority.checked = true;
+        }
+    });
+</script>
+</body>
+</html>
